@@ -16,6 +16,7 @@ set mouse=a
 "set ofu=syntaxcomplete#Complete
 set guifont=Monospace\ 9
 syntax on
+set backspace=indent,eol,start
 
 set shell=/bin/bash "zsh downt work with vcscommand"
 let mapleader = ","
@@ -41,9 +42,9 @@ let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 let g:clang_auto_select=1
 let g:clang_complete_auto=1
-let g:clang_complete_copen=1
-let g:clang_hl_errors=1
-let g:clang_periodic_quickfix=0
+let g:clang_complete_copen=0
+"let g:clang_hl_errors=1
+"let g:clang_periodic_quickfix=0
 let g:clang_snippets=1
 let g:clang_snippets_engine="clang_complete"
 let g:clang_conceal_snippets=1
@@ -55,3 +56,4 @@ let g:clang_use_library=1
 let g:clang_sort_algo="priority"
 let g:clang_complete_macros=1
 let g:clang_complete_patterns=0
+"set runtimepath-=~/.vim/bundle/delmitmate

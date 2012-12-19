@@ -1,2 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/cluster/bes3/scripts'
+let g:netrw_dirhist_2='/cluster/bes3/scripts/6.6.2'
+let g:netrw_dirhist_3='/home/weidenka/rootAnalysis/DKsKK'
+let g:netrw_dirhist_4='/home/weidenka/.vim/autoload'
+let g:netrw_dirhist_5='/home/weidenka/.vim'
