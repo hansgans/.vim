@@ -27,19 +27,10 @@ set laststatus=2
 let g:Tex_MultipleCompileFormats = "dvi,pdf"
 let g:Tex_ViewRule_pdf='Skim'
 let g:tex_flavor='latex'
+set grepprg=grep\ -nH\ $*
+let mapleader = '\'
+
 let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-"highlight   clear
-"highlight   Pmenu         ctermfg=0 ctermbg=2
-"highlight   PmenuSel      ctermfg=0 ctermbg=7
-"highlight   PmenuSbar     ctermfg=7 ctermbg=0
-"highlight   PmenuThumb    ctermfg=0 ctermbg=7
-
-"function! UpdateTags()
-	"execute ":!/opt/local/bin/ctags -R --languages=C++ --c++-kinds=+cdefgmptl --fields=+iaS --extra=+q ./"
-	"echohl StatusLine | echo "C/C++ tag updated" | echohl None
-"endfunction
-"nnoremap <F4> :call UpdateTags()
-
 let g:clang_auto_select=1
 let g:clang_complete_auto=1
 let g:clang_complete_copen=0
@@ -56,4 +47,3 @@ let g:clang_use_library=1
 let g:clang_sort_algo="priority"
 let g:clang_complete_macros=1
 let g:clang_complete_patterns=0
-"set runtimepath-=~/.vim/bundle/delmitmate
