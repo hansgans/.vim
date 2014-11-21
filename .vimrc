@@ -17,34 +17,59 @@ set mouse=a
 set guifont=Monospace\ 9
 syntax on
 set backspace=indent,eol,start
-
+set autochdir
 set shell=/bin/bash "zsh downt work with vcscommand"
-let mapleader = ","
 set hlsearch
 set statusline=%F%m%r%h%w\ line\ %04l(%p%%),\ row\ %04v
 set laststatus=2
 
-"let g:Tex_TEXINPUTS= "..:"
-let g:Tex_MultipleCompileFormats = "dvi,pdf"
+au BufNewFile,BufRead,BufEnter *.cint set filetype=cpp
+
+"Settings for VimLatex
+let g:Tex_TEXINPUTS= "..:"
+let g:Tex_DefaultTargetFormat="pdf"
+let g:Tex_CompileRule_pdf='make'
 let g:Tex_ViewRule_pdf='Skim'
-let g:tex_flavor='latex'
+let g:Tex_MultipleCompileFormats = "dvi"
+"let g:tex_flavor='latex'
+let g:Tex_UseMakefile=1
+let g:Tex_GotoError=0
+
 set grepprg=grep\ -nH\ $*
 let mapleader = '\'
 
-"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-"let g:clang_auto_select=1
-"let g:clang_complete_auto=0
-"let g:clang_complete_copen=0
-"let g:clang_hl_errors=1
-"let g:clang_periodic_quickfix=0
-"let g:clang_snippets=0
-"let g:clang_snippets_engine="clang_complete"
-"let g:clang_conceal_snippets=0
-"let g:clang_exec="clang"
-"let g:clang_user_options=""
-"let g:clang_auto_user_options="path, .clang_complete"
-"let g:clang_use_library=1
-"let g:clang_library_path="/directory/of/libclang.so/"
-"let g:clang_sort_algo="priority"
-"let g:clang_complete_macros=1
-"let g:clang_complete_patterns=0
+"Append MacPorts to $PATH
+"let $PATH .= '.:/opt/local/bin:/opt/local/sbin'
+
+function! DoPrettyXML()
+   save the filetype so we can restore it later
+   let l:origft = &ft
+   set ft=
+   " delete the xml header if it exists. This will
+   " permit us to surround the document with fake tags
+   " without creating invalid xml.
+   1s/<?xml .*?>//e
+   " insert fake tags around the entire document.
+   " This will permit us to pretty-format excerpts of
+   " XML that may contain multiple top-level elements.
+   0put ='<PrettyXML>'
+   $put ='</PrettyXML>'
+   silent %!xmllint --format -
+   " xmllint will insert an <?xml?> header. it's
+   easy enough to delete
+   " if you don't want it.
+   " delete the fake tags
+   2d
+   $d
+   " restore the 'normal' indentation,
+   which is one extra level
+   " too deep due to the extra tags
+   we wrapped around the document.
+   silent %<
+   " back to home
+   1
+   " restore the filetype
+   exe "set ft=" .
+   l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
