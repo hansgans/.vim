@@ -65,7 +65,7 @@ endif"
 ""let g:tex_flavor='latex'
 "let g:Tex_UseMakefile=1
 "let g:Tex_GotoError=0
-"
+
 "Settings for vimtex
 let g:vimtex_complete_enabled=1
 let g:vimtex_view_enable=1
@@ -122,4 +122,3 @@ nnoremap <leader>g :OnlineThesaurusCurrentWord<CR>
 " Needed to remove some error message
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
- 
