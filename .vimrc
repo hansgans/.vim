@@ -122,3 +122,11 @@ nnoremap <leader>g :OnlineThesaurusCurrentWord<CR>
 " Needed to remove some error message
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
+
+" TagBar (useful with ctags)
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
+
+set tags=./tags;,tags;
+set tags+=~/.tags/boss665p01
+set tags+=~/.tags/root6
+set tags+=~/.tags/gaudi

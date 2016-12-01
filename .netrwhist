@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/weidenka/work/plots/DKsKK/dataPWA/Background/untagged/mc-bkg'
-let g:netrw_dirhist_2='/Users/weidenka/work/plots/DKsKK/dataPWA/untagged-reduced-small'
-let g:netrw_dirhist_3='/Users/weidenka/work/plots/DKsKK/dataPWA/tagged/InputOutputCheck'
+let g:netrw_dirhist_1='/home/weidenka/boss/Analysis/DumpDecayTreeAlg/DumpDecayTreeAlg-00-00-04/DumpDecayTreeAlg/DumpDecayTreeAlg'
+let g:netrw_dirhist_2='/home/weidenka/boss/Analysis/DumpDecayTreeAlg/DumpDecayTreeAlg-00-00-04/src'
+let g:netrw_dirhist_3='/home/weidenka/boss/Analysis/DumpDecayTreeAlg/DumpDecayTreeAlg-00-00-04/DumpDecayTreeAlg/DumpDecayTreeAlg'
