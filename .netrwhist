@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/weidenka/work/plots/DKsKK/dataPWA/Background/untagged/mc-bkg'
-let g:netrw_dirhist_2='/Users/weidenka/work/plots/DKsKK/dataPWA/untagged-reduced-small'
-let g:netrw_dirhist_3='/Users/weidenka/work/plots/DKsKK/dataPWA/tagged/InputOutputCheck'
