@@ -1,6 +1,11 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" Prevent loading neocomplete if vim is too old 
+if version < 73885
+	let g:loaded_neocomplete = 1
+endif
+
 set shiftwidth=4	" number of spaces to use for auto intent
 set tabstop=4 		" space representing one tab stop
 set softtabstop=4 		" space representing one tab stop
@@ -169,3 +174,4 @@ set tags+=~/.tags/*
 set tags+=~/.tags/boss665p01
 set tags+=~/.tags/root6
 set tags+=~/.tags/gaudi
+
