@@ -60,7 +60,7 @@ au BufRead,BufNewFile *.py,*.pyw set number
 let python_highlight_all=1
 
 "set decent color scheme
-colorscheme peachpuff
+colorscheme Solarized
 " neocomplete plugin
 let g:neocomplete#enable_at_startup = 1
 if !exists('g:neocomplete#sources#omni#input_patterns')
