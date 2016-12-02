@@ -1,22 +1,23 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
-"Do we want to save the current view to ~/.vim/view ?
-"au BufWinLeave *.* mkview
-"au BufWinEnter *.* silent loadview
-set sw=3
-set tabstop=4
+
+set shiftwidth=4	" number of spaces to use for auto intent
+set tabstop=4 		" space representing one tab stop
+set softtabstop=4 		" space representing one tab stop
 set foldmethod=marker
 filetype plugin on
 filetype indent on
+set autoindent
 set nobackup
 set nowritebackup
 set noswapfile
 set wildmenu
 set wildmode=list:longest,full
 set mouse=a
+set cursorline		" line below curser
 "set ofu=syntaxcomplete#Complete
 set guifont=Monaco:h12
-syntax on
+syntax on			" syntax highlighting
 set backspace=indent,eol,start
 set autochdir
 set shell=/bin/bash "zsh downt work with vcscommand"
@@ -26,8 +27,32 @@ set laststatus=2
 set grepprg=grep\ -nH\ $*
 "Set mapleader
 let mapleader = '\'
-"use cpp syntax for *.cint files
+
+" show the matching part of the pair for [] {} and ()
+set showmatch
+
+" File type specific config
+" use cpp syntax for *.cint files
 au BufNewFile,BufRead,BufEnter *.cint set filetype=cpp
+" Make trailing whitespace be flagged as bad.
+au BufRead,BufNewFile *.c,*.h match BadWhitespace /\s\+$/
+" Wrap text after a certain number of characters
+au BufRead,BufNewFile *.c,*.h set textwidth=79
+
+" expand tabs to spaces in python files
+au BufRead,BufNewFile *.py,*.pyw set expandtab
+" Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+" Display tabs at the beginning of a line in Python mode as bad.
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+" Make trailing whitespace be flagged as bad.
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /\s\+$/
+" Wrap text after a certain number of characters
+au BufRead,BufNewFile *.py,*.pyw set textwidth=79
+" Enable line numbers
+au BufRead,BufNewFile *.py,*.pyw set number
+" Full python syntax highlighting
+let python_highlight_all=1
 
 "set decent color scheme
 colorscheme peachpuff
@@ -126,7 +151,21 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 " TagBar (useful with ctags)
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+"	Close vim if NERDTree is the last window open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeDirArrowExpandable = '>'
+let g:NERDTreeDirArrowCollapsible = '-'
+"	Start NERDTree automatically if no files are open
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" python-mode: disable rope, we use jedi-vim for tab completion
+let g:pymode_rope = 0
+
 set tags=./tags;,tags;
+set tags+=~/.tags/*
 set tags+=~/.tags/boss665p01
 set tags+=~/.tags/root6
 set tags+=~/.tags/gaudi
