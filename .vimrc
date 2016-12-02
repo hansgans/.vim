@@ -1,11 +1,6 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-" Prevent loading neocomplete if vim is too old 
-if version < 73885
-	let g:loaded_neocomplete = 1
-endif
-
 set shiftwidth=4	" number of spaces to use for auto intent
 set tabstop=4 		" space representing one tab stop
 set softtabstop=4 		" space representing one tab stop
@@ -60,41 +55,40 @@ au BufRead,BufNewFile *.py,*.pyw set number
 let python_highlight_all=1
 
 "set decent color scheme
-colorscheme Solarized
+colorscheme solarized
 " neocomplete plugin
-let g:neocomplete#enable_at_startup = 1
-if !exists('g:neocomplete#sources#omni#input_patterns')
-   let g:neocomplete#sources#omni#input_patterns = {}
+"
+if version < 73885
+	let g:loaded_neocomplete = 1 " disable
+else
+	let g:neocomplete#enable_at_startup = 1
+	if !exists('g:neocomplete#sources#omni#input_patterns')
+		let g:neocomplete#sources#omni#input_patterns = {}
+	endif
+	let g:neocomplete#sources#omni#input_patterns.tex =
+				\ '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
 endif
-let g:neocomplete#sources#omni#input_patterns.tex =
-		 \ '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
 
 " neosnippet plugin
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-		 \ "\<Plug>(neosnippet_expand_or_jump)"
-		 \: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-		 \ "\<Plug>(neosnippet_expand_or_jump)"
-		 \: "\<TAB>"
-" For conceal markers. Simple math is displayer by its unicode characters
-if has('conceal')
-   "set conceallevel=2 concealcursor=niv
-endif"  
-
-"Settings for VimLatex
-"let g:Tex_TEXINPUTS= "..:"
-"let g:Tex_DefaultTargetFormat="pdf"
-"let g:Tex_CompileRule_pdf='make'
-"let g:Tex_ViewRule_pdf='Skim'
-"let g:Tex_MultipleCompileFormats = "dvi"
-""let g:tex_flavor='latex'
-"let g:Tex_UseMakefile=1
-"let g:Tex_GotoError=0
+if version < 70167
+	let g:loaded_neosnippet = 1 " disable
+else
+	" Plugin key-mappings.
+	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k>     <Plug>(neosnippet_expand_target)
+	" SuperTab like snippets behavior.
+	imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+				\ "\<Plug>(neosnippet_expand_or_jump)"
+				\: pumvisible() ? "\<C-n>" : "\<TAB>"
+	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+				\ "\<Plug>(neosnippet_expand_or_jump)"
+				\: "\<TAB>"
+	" For conceal markers. Simple math is displayer by its unicode characters
+	if has('conceal')
+		"set conceallevel=2 concealcursor=niv
+	endif"  
+endif
 
 "Settings for vimtex
 let g:vimtex_complete_enabled=1
@@ -109,35 +103,35 @@ let g:vimtex_latexmk_continuous=1
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
 function! DoPrettyXML()
-   save the filetype so we can restore it later
-   let l:origft = &ft
-   set ft=
-   " delete the xml header if it exists. This will
-   " permit us to surround the document with fake tags
-   " without creating invalid xml.
-   1s/<?xml .*?>//e
-   " insert fake tags around the entire document.
-   " This will permit us to pretty-format excerpts of
-   " XML that may contain multiple top-level elements.
-   0put ='<PrettyXML>'
-   $put ='</PrettyXML>'
-   silent %!xmllint --format -
-   " xmllint will insert an <?xml?> header. it's
-   easy enough to delete
-   " if you don't want it.
-   " delete the fake tags
-   2d
-   $d
-   " restore the 'normal' indentation,
-   which is one extra level
-   " too deep due to the extra tags
-   we wrapped around the document.
-   silent %<
-   " back to home
-   1
-   " restore the filetype
-   exe "set ft=" .
-   l:origft
+	save the filetype so we can restore it later
+	let l:origft = &ft
+	set ft=
+	" delete the xml header if it exists. This will
+	" permit us to surround the document with fake tags
+	" without creating invalid xml.
+	1s/<?xml .*?>//e
+	" insert fake tags around the entire document.
+	" This will permit us to pretty-format excerpts of
+	" XML that may contain multiple top-level elements.
+	0put ='<PrettyXML>'
+	$put ='</PrettyXML>'
+	silent %!xmllint --format -
+	" xmllint will insert an <?xml?> header. it's
+	easy enough to delete
+	" if you don't want it.
+	" delete the fake tags
+	2d
+	$d
+	" restore the 'normal' indentation,
+	which is one extra level
+	" too deep due to the extra tags
+	we wrapped around the document.
+	silent %<
+	" back to home
+	1
+	" restore the filetype
+	exe "set ft=" .
+	l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
 
@@ -157,14 +151,23 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR>
-"	Close vim if NERDTree is the last window open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable = '>'
-let g:NERDTreeDirArrowCollapsible = '-'
-"	Start NERDTree automatically if no files are open
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+if version < 70167
+	let g:loaded_nerd_tree = 1 " disable
+else
+	map <C-n> :NERDTreeToggle<CR>
+	"	Close vim if NERDTree is the last window open
+	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+	let g:NERDTreeDirArrowExpandable = '>'
+	let g:NERDTreeDirArrowCollapsible = '-'
+	"	Start NERDTree automatically if no files are open
+	autocmd StdinReadPre * let s:std_in=1
+	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+endif
+
+" NEOcomplete
+if version < 70167
+	let g:loaded_tagbar = 1 " disable
+endif
 
 " python-mode: disable rope, we use jedi-vim for tab completion
 let g:pymode_rope = 0
