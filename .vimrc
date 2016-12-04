@@ -180,10 +180,6 @@ endif
 " python-mode: disable rope, we use jedi-vim for tab completion
 let g:pymode_rope = 0
 
-set tags=./tags;,tags;
-set tags+=~/.tags/*
-set tags+=~/.tags/boss
-set tags+=~/.tags/root6
-set tags+=~/.tags/gaudi
-set tags+=~/.tags/compwa
-
+" Ctags - loading tag files
+set tags=./tags;,tags; " search for files in current directory
+set tags+=~/.tags/*/tags " load tag files in home directory
