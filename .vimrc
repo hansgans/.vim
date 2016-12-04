@@ -173,8 +173,8 @@ endif
 let g:pymode_rope = 0
 
 set tags=./tags;,tags;
-set tags+=~/.tags/*
-set tags+=~/.tags/boss665p01
-set tags+=~/.tags/root6
-set tags+=~/.tags/gaudi
+set tags+=~/.tags/*/tags
+"set tags+=~/.tags/boss665p01
+"set tags+=~/.tags/root6
+"set tags+=~/.tags/gaudi
 
