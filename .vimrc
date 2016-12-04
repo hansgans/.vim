@@ -54,10 +54,18 @@ au BufRead,BufNewFile *.py,*.pyw set number
 " Full python syntax highlighting
 let python_highlight_all=1
 
-"set decent color scheme
+" Set color scheme
+if has('gui_running')
+	set background=light
+else
+	set background=dark
+endif
 colorscheme solarized
+"if version > 73885
+"else
+"endif
+
 " neocomplete plugin
-"
 if version < 73885
 	let g:loaded_neocomplete = 1 " disable
 else
@@ -174,7 +182,8 @@ let g:pymode_rope = 0
 
 set tags=./tags;,tags;
 set tags+=~/.tags/*
-set tags+=~/.tags/boss665p01
+set tags+=~/.tags/boss
 set tags+=~/.tags/root6
 set tags+=~/.tags/gaudi
+set tags+=~/.tags/compwa
 
