@@ -15,7 +15,6 @@ set wildmenu
 set wildmode=list:longest,full
 set mouse=a
 set cursorline		" line below curser
-"set ofu=syntaxcomplete#Complete
 set guifont=Monaco:h12
 syntax on			" syntax highlighting
 set backspace=indent,eol,start
@@ -39,20 +38,6 @@ au BufRead,BufNewFile *.c,*.h match BadWhitespace /\s\+$/
 " Wrap text after a certain number of characters
 au BufRead,BufNewFile *.c,*.h set textwidth=79
 
-" expand tabs to spaces in python files
-au BufRead,BufNewFile *.py,*.pyw set expandtab
-" Use the below highlight group when displaying bad whitespace is desired.
-highlight BadWhitespace ctermbg=red guibg=red
-" Display tabs at the beginning of a line in Python mode as bad.
-au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
-" Make trailing whitespace be flagged as bad.
-au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /\s\+$/
-" Wrap text after a certain number of characters
-au BufRead,BufNewFile *.py,*.pyw set textwidth=79
-" Enable line numbers
-au BufRead,BufNewFile *.py,*.pyw set number
-" Full python syntax highlighting
-let python_highlight_all=1
 
 " Set color scheme
 if has('gui_running')
@@ -61,9 +46,6 @@ else
 	set background=dark
 endif
 colorscheme solarized
-"if version > 73885
-"else
-"endif
 
 " neocomplete plugin
 if version < 73885
@@ -102,9 +84,10 @@ endif
 let g:vimtex_complete_enabled=1
 let g:vimtex_view_enable=1
 let g:vimtex_view_method='general'
+if has("mac")
 let g:vimtex_view_general_viewer='/Applications/Skim.app/Contents/SharedSupport/displayline'
+endif
 let g:vimtex_view_general_options='@line @pdf @tex'
-"let g:vimtex_view_general_options_latexmk='skim'
 let g:vimtex_latexmk_continuous=1
 
 "Settings for XML editing
@@ -143,7 +126,6 @@ function! DoPrettyXML()
 endfunction
 command! PrettyXML call DoPrettyXML()
 
-
 " AirLine is a nice status/tabline
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_powerline_fonts = 1
@@ -156,6 +138,9 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
 " TagBar (useful with ctags)
+if version < 70167
+	let g:loaded_tagbar = 1 " disable
+endif
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 " NERDTree
@@ -172,13 +157,23 @@ else
 	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 endif
 
-" NEOcomplete
-if version < 70167
-	let g:loaded_tagbar = 1 " disable
-endif
-
-" python-mode: disable rope, we use jedi-vim for tab completion
+" PYTHON: plugin python-mode 
+" disable rope, we use jedi-vim for tab completion
 let g:pymode_rope = 0
+" expand tabs to spaces in python files
+au BufRead,BufNewFile *.py,*.pyw set expandtab
+" Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+" Display tabs at the beginning of a line in Python mode as bad.
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+" Make trailing whitespace be flagged as bad.
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /\s\+$/
+" Wrap text after a certain number of characters
+au BufRead,BufNewFile *.py,*.pyw set textwidth=79
+" Enable line numbers
+au BufRead,BufNewFile *.py,*.pyw set number
+" Full python syntax highlighting
+let python_highlight_all=1
 
 " Ctags - loading tag files
 set tags=./tags;,tags; " search for files in current directory
