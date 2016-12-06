@@ -48,7 +48,7 @@ endif
 colorscheme solarized
 
 " neocomplete plugin
-if version < 73885
+if v:version < 704
 	let g:loaded_neocomplete = 1 " disable
 else
 	let g:neocomplete#enable_at_startup = 1
@@ -60,7 +60,7 @@ else
 endif
 
 " neosnippet plugin
-if version < 70167
+if v:version < 701
 	let g:loaded_neosnippet = 1 " disable
 else
 	" Plugin key-mappings.
@@ -138,16 +138,16 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
 " TagBar (useful with ctags)
-if version < 70167
+if v:version < 701
 	let g:loaded_tagbar = 1 " disable
 endif
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 " NERDTree
-if version < 70167
+if v:version < 701
 	let g:loaded_nerd_tree = 1 " disable
 else
-	map <C-n> :NERDTreeToggle<CR>
+	map <C-n> :NERDTreeToggle<CR><CR>
 	"	Close vim if NERDTree is the last window open
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 	let g:NERDTreeDirArrowExpandable = '>'
