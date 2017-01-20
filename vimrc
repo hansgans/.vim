@@ -93,6 +93,8 @@ let g:vimtex_view_general_viewer='/Applications/Skim.app/Contents/SharedSupport/
 endif
 let g:vimtex_view_general_options='@line @pdf @tex'
 let g:vimtex_latexmk_continuous=1
+" Enable spell checking by default for TeX files
+au BufRead,BufNewFile *.tex set spell
 
 "Settings for XML editing
 let g:xml_syntax_folding=1
