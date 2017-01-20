@@ -85,6 +85,7 @@ endif
 
 "Settings for vimtex
 let g:vimtex_complete_enabled=1
+let g:vimtex_toc_enable=1
 let g:vimtex_view_enable=1
 let g:vimtex_view_method='general'
 if has("mac")
