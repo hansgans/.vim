@@ -27,7 +27,7 @@ Plugin 'airblade/vim-gitgutter' "Git interface
 Plugin 'vim-scripts/a.vim' "Open corresponding header files to source file and otherwise
 Plugin 'tpope/vim-fugitive' "use ctags
 Plugin 'tpope/vim-surround' "automatically insert braces, quotes
-Plugin 'xolox/vim-easytags' "Autimatic generation of tag files
+Plugin 'xolox/vim-easytags' "Autimatic generation of tag files (VERY SLOW startup for large tag files)
 Plugin 'majutsushi/tagbar' "Tag bar
 Plugin 'scrooloose/nerdcommenter' 
 Plugin 'Shougo/neocomplete'
@@ -257,8 +257,8 @@ augroup END
 "
 " Where to look for tags files
 set tags=./tags;,~/.vimtags
-set tags+=./tags;,tags; " search for files in current directory
-set tags+=~/.tags/*/tags " load tag files in home directory
+"set tags+=./tags;,tags; " search for files in current directory
+"set tags+=~/.tags/*/tags " load tag files in home directory
 " Sensible defaults
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
 let g:easytags_async = 1
