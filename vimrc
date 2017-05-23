@@ -7,21 +7,42 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+" Vim looking good
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+" Navigation
+Plugin 'wincent/command-t' "Fast file navigation
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'xolox/vim-misc'
+
+" Git
+Plugin 'airblade/vim-gitgutter'
+
+" Vim as an IDE
+Plugin 'vim-scripts/a.vim' "Open corresponding header files to source file and otherwise
+Plugin 'tpope/vim-fugitive' "use ctags
+Plugin 'tpope/vim-surround' "automatically insert braces, quotes
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'python-mode/python-mode'
+
+Plugin 'rkitover/vimpager' "Use vim as pager (provides highlighting)
 Plugin 'ctrlpvim/ctrlp.vim' "Ctrl+P search for filename in normal mode
-Plugin 'vim-scripts/a.vim' "Open corresponding header files to source file and otherwise
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'Raimondi/delimitMate' "automatically insert braces, quotes
+
+Plugin 'sukima/xmledit'
+
+" Tex plugins
+Plugin 'lervag/vimtex'
+Plugin 'beloglazov/vim-online-thesaurus'
 
 call vundle#end()
 
@@ -207,10 +228,10 @@ else
 
 	" Open/close NERDTree Tabs with \t
 	nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
+	"map <C-n> :NERDTreeToggle<CR><CR>
 	" To have NERDTree always open on startup
-	let g:nerdtree_tabs_open_on_console_startup = 1
+	let g:nerdtree_tabs_open_on_console_startup = 0
 
-	map <C-n> :NERDTreeToggle<CR><CR>
 	"	Close vim if NERDTree is the last window open
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 	let g:NERDTreeDirArrowExpandable = '>'
