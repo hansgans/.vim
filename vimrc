@@ -33,6 +33,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'rhysd/vim-clang-format'
 Plugin 'python-mode/python-mode'
 
 Plugin 'rkitover/vimpager' "Use vim as pager (provides highlighting)
@@ -308,3 +309,8 @@ augroup mydelimitMate
   au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
   au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
+
+"
+" vim-clang-format
+"
+let g:clang_format#code_style = "mozilla"
