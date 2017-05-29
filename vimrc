@@ -17,19 +17,19 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'wincent/command-t' "Fast file navigation
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-syntastic/syntastic' "Syntax checking
 Plugin 'xolox/vim-misc'
 
 " Git
-Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter' "Git diff
+Plugin 'tpope/vim-fugitive' "Git interface
 
 " Vim as an IDE
 Plugin 'vim-scripts/a.vim' "Open corresponding header files to source file and otherwise
-Plugin 'tpope/vim-fugitive' "use ctags
 Plugin 'tpope/vim-surround' "automatically insert braces, quotes
-Plugin 'xolox/vim-easytags' "VERY SLOW startup!
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdcommenter'
+Plugin 'xolox/vim-easytags' "Automatic generation of tag files (VERY SLOW startup for large tag files)
+Plugin 'majutsushi/tagbar' "Tag bar
+Plugin 'scrooloose/nerdcommenter' 
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
