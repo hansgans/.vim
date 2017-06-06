@@ -232,6 +232,7 @@ else
 	"map <C-n> :NERDTreeToggle<CR><CR>
 	" To have NERDTree always open on startup
 	let g:nerdtree_tabs_open_on_console_startup = 0
+	let g:nerdtree_tabs_open_on_gui_startup = 0
 
 	"	Close vim if NERDTree is the last window open
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
