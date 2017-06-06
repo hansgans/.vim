@@ -315,3 +315,14 @@ augroup END
 " vim-clang-format
 "
 let g:clang_format#code_style = "mozilla"
+
+
+" Highlight overlong lines
+if exists('+colorcolumn')
+	set textwidth=80
+	set colorcolumn=+1
+	highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9 guifg=white
+	match OverLength /\%>81v.\+/
+else
+	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
