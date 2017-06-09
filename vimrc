@@ -49,9 +49,6 @@ call vundle#end()
 
 filetype plugin indent on
 
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
-
 " disable clipboard to improve startup time
 set clipboard=exclude:.*
 
