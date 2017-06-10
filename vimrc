@@ -247,12 +247,18 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_error_symbol = '✘'
-"let g:syntastic_warning_symbol = "▲"
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = '✘'
+let g:syntastic_warning_symbol = "▲"
+" use cpp checker for files for .C, c, .h ending (e.g. root scripts)
+let g:syntastic_c_checkers = ['cpp/clang_check']
+" Args can be specified in .syntastic_clang_check_config 
+"	one argument per line (w/o -extra-arg= option)
+"let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-I/opt/local/include/root\" \
+"										 -extra-arg=\"-std=c++11\""
 augroup mySyntastic
   au!
   au FileType tex let b:syntastic_mode = "passive"
