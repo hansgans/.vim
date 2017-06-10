@@ -251,8 +251,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = "▲"
+" Symbols not available in terminal
+"let g:syntastic_error_symbol = '✘'
+"let g:syntastic_warning_symbol = "▲"
 " use cpp checker for files for .C, c, .h ending (e.g. root scripts)
 let g:syntastic_c_checkers = ['cpp/clang_check']
 " Args can be specified in .syntastic_clang_check_config 
