@@ -52,7 +52,7 @@ filetype plugin indent on
 " disable clipboard to improve startup time
 set clipboard=exclude:.*
 
-set shiftwidth=4	" number of spaces to use for auto intent
+set shiftwidth=2	" number of spaces to use for auto intent
 set tabstop=4 		" space representing one tab stop
 set softtabstop=4 		" space representing one tab stop
 set foldmethod=marker
@@ -153,7 +153,7 @@ au BufRead,BufNewFile *.tex set filetype=tex
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
 function! DoPrettyXML()
-	save the filetype so we can restore it later
+	" save the filetype so we can restore it later
 	let l:origft = &ft
 	set ft=
 	" delete the xml header if it exists. This will
@@ -167,21 +167,20 @@ function! DoPrettyXML()
 	$put ='</PrettyXML>'
 	silent %!xmllint --format -
 	" xmllint will insert an <?xml?> header. it's
-	easy enough to delete
-	" if you don't want it.
+	" easy enough to delete if you don't want it.
 	" delete the fake tags
 	2d
 	$d
-	" restore the 'normal' indentation,
-	which is one extra level
-	" too deep due to the extra tags
-	we wrapped around the document.
+	" restore the 'normal' indentation, which is one extra level
+	" too deep due to the extra tags we wrapped around the document.
 	silent %<
+	" Remove empty lines (and lines containting white spaces/tabs 
+	" only
+	g/^\s*$/d
 	" back to home
 	1
-	" restore the filetype
-	exe "set ft=" .
-	l:origft
+	" restore the filetype exe "set ft="
+	set ft=xml
 endfunction
 command! PrettyXML call DoPrettyXML()
 
@@ -216,6 +215,12 @@ if v:version < 701
 	let g:loaded_tagbar = 1 " disable
 endif
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
+
+"
+" NERTCommenter
+" 
+" Use // comments in .c files
+let g:NERDAltDelims_c = 1
 
 "
 " NERDTree
@@ -258,6 +263,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_c_checkers = ['cpp/clang_check']
 " Args can be specified in .syntastic_clang_check_config 
 "	one argument per line (w/o -extra-arg= option)
+let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-std=c++11\"" 
 "let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-I/opt/local/include/root\" \
 "										 -extra-arg=\"-std=c++11\""
 augroup mySyntastic
