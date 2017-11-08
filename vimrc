@@ -17,7 +17,8 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'wincent/command-t' "Fast file navigation
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'vim-syntastic/syntastic' "Syntax checking
+"Plugin 'vim-syntastic/syntastic' "Syntax checking
+Plugin 'neomake/neomake'
 Plugin 'xolox/vim-misc'
 
 " Git
@@ -30,10 +31,20 @@ Plugin 'tpope/vim-surround' "automatically insert braces, quotes
 Plugin 'xolox/vim-easytags' "Automatic generation of tag files (VERY SLOW startup for large tag files)
 Plugin 'majutsushi/tagbar' "Tag bar
 Plugin 'scrooloose/nerdcommenter' 
-Plugin 'Shougo/neocomplete'
+Plugin 'davidhalter/jedi-vim' " Improved autocompletition for python
+"Plugin 'Shougo/neocomplete' " neocomplete is deprecated
+Plugin 'zchee/deoplete-jedi'
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'Chiel92/vim-autoformat' " Auto format source code
 Plugin 'python-mode/python-mode'
 
 Plugin 'rkitover/vimpager' "Use vim as pager (provides highlighting)
@@ -50,7 +61,7 @@ call vundle#end()
 filetype plugin indent on
 
 " disable clipboard to improve startup time
-set clipboard=exclude:.*
+"set clipboard=exclude:.*
 
 set shiftwidth=2	" number of spaces to use for auto intent
 set tabstop=4 		" space representing one tab stop
@@ -133,6 +144,15 @@ else
 		"set conceallevel=2 concealcursor=niv
 	endif"  
 endif
+
+" jedi-vim
+" We want to use jedi autocompletition for python
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#completions_enabled = 1
+let g:jedi#auto_vim_configuration = 1
+"let g:neocomplete#force_omni_input_patterns.python = 
+	  "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*' 
+		" alternative pattern: '\h\w*\|[^. \t]\.\w*'
 
 "Settings for vimtex
 let g:vimtex_complete_enabled=1
@@ -246,30 +266,39 @@ else
 endif
 
 "
-" Syntastic 
+" Syntax checking
 "
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+let g:neomake_open_list = 2 " open window in case of errors
+let g:neomake_python_enabled_makers = ['pylint']
+" Run neomake in normal mode and buffer write
+call neomake#configure#automake('nw')
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-" Symbols not available in terminal
-"let g:syntastic_error_symbol = '✘'
-"let g:syntastic_warning_symbol = "▲"
-" use cpp checker for files for .C, c, .h ending (e.g. root scripts)
-let g:syntastic_c_checkers = ['cpp/clang_check']
-" Args can be specified in .syntastic_clang_check_config 
-"	one argument per line (w/o -extra-arg= option)
-let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-std=c++11\"" 
-"let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-I/opt/local/include/root\" \
-"										 -extra-arg=\"-std=c++11\""
-augroup mySyntastic
-  au!
-  au FileType tex let b:syntastic_mode = "passive"
-augroup END
+" Old sytastic configuration
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+"" Symbols not available in terminal
+""let g:syntastic_error_symbol = '✘'
+""let g:syntastic_warning_symbol = "▲"
+"" use cpp checker for files for .C, c, .h ending (e.g. root scripts)
+"let g:syntastic_c_checkers = ['cpp/clang_check']
+"" Args can be specified in .syntastic_clang_check_config 
+""	one argument per line (w/o -extra-arg= option)
+"let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-std=c++11\"" 
+""let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-I/opt/local/include/root\" \
+""										 -extra-arg=\"-std=c++11\""
+"let g:syntastic_python_checkers = ['pylint']
+"" Disable (style) warnings
+"let g:syntastic_python_pylint_args = '--disable=all --enable=E'
+"augroup mySyntastic
+  "au!
+  "au FileType tex let b:syntastic_mode = "passive"
+"augroup END
 
 "
 " vim-easytags 
@@ -294,8 +323,16 @@ nmap <silent> <leader>b :TagbarToggle<CR>
 "
 " PYTHON: plugin python-mode 
 "
-" disable rope, we use jedi-vim for tab completion
-let g:pymode_rope = 0
+let g:pymode_options = 0              " do not change relativenumber
+let g:pymode_indent = 1               " use vim-python-pep8-indent (upstream of pymode)
+let g:pymode_lint = 0                 " prefer syntastic; pymode has problems when PyLint was invoked already before VirtualEnvActivate..!?!
+let g:pymode_virtualenv = 0           " use virtualenv plugin (required for pylint?!)
+let g:pymode_doc = 0                  " use pydoc
+let g:pymode_rope_completion = 0      " use YouCompleteMe instead (python-jedi)
+let g:pymode_syntax_space_errors = 0  " using MyWhitespaceSetup
+let g:pymode_trim_whitespaces = 0
+let g:pymode_debug = 0
+let g:pymode_rope = 0 " disable rope, we use jedi-vim for tab completion
 " expand tabs to spaces in python files
 au BufRead,BufNewFile *.py,*.pyw set expandtab
 " Use the below highlight group when displaying bad whitespace is desired.
