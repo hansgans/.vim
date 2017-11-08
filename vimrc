@@ -47,6 +47,7 @@ Plugin 'rhysd/vim-clang-format'
 Plugin 'Chiel92/vim-autoformat' " Auto format source code
 Plugin 'python-mode/python-mode'
 
+Plugin 'chrisbra/vim-diff-enhanced'
 Plugin 'rkitover/vimpager' "Use vim as pager (provides highlighting)
 Plugin 'ctrlpvim/ctrlp.vim' "Ctrl+P search for filename in normal mode
 
@@ -235,6 +236,14 @@ if v:version < 701
 	let g:loaded_tagbar = 1 " disable
 endif
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
+
+" 
+" vim-diff-enhanced
+"
+" started In Diff-Mode set diffexpr (plugin not loaded yet)
+if &diff
+  let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+endif
 
 "
 " NERTCommenter
