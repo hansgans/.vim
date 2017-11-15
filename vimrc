@@ -251,19 +251,35 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = {
+        \ "mode": "passive",
+        \ "active_filetypes": ["ruby", "php"],
+        \ "passive_filetypes": ["tex","cpp"] }
+
 " Symbols not available in terminal
 "let g:syntastic_error_symbol = '✘'
 "let g:syntastic_warning_symbol = "▲"
 " use cpp checker for files for .C, c, .h ending (e.g. root scripts)
-let g:syntastic_c_checkers = ['cpp/clang_check']
-" Args can be specified in .syntastic_clang_check_config 
-"	one argument per line (w/o -extra-arg= option)
+let g:syntastic_c_checkers = ['cpp/clang_check', 'cpp/gcc']
+" Args can be specified in .syntastic_clang_check_config  or
+" .syntastic_cpp_config. One argument per line (e.g. -I/mydir/include )
 "let g:syntastic_cpp_clang_check_args = "-extra-arg=\"-I/opt/local/include/root\" \
 "										 -extra-arg=\"-std=c++11\""
-augroup mySyntastic
-  au!
-  au FileType tex let b:syntastic_mode = "passive"
-augroup END
+let g:syntastic_c_remove_include_errors = 1
+let g:syntastic_cpp_remove_include_errors = 1
+function! FindConfig(prefix, what, where)
+	let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+	return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+endfunction
+
+" Search for config files is upstream directories
+autocmd FileType cpp let b:syntastic_cpp_config =
+			\ get(g:, 'syntastic_cpp_config', '') .
+			\ FindConfig('-c', '.syntastic_cpp_config', expand('<afile>:p:h', 1))
+"augroup mySyntastic
+	"au!
+	"au FileType tex let b:syntastic_mode = "passive"
+"augroup END
 
 "
 " vim-easytags 
@@ -316,11 +332,11 @@ let g:airline#extensions#hunks#non_zero_only = 1
 "
 let delimitMate_expand_cr = 1
 augroup mydelimitMate
-  au!
-  au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-  au FileType tex let b:delimitMate_quotes = ""
-  au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
-  au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+	au!
+	au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+	au FileType tex let b:delimitMate_quotes = ""
+	au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+	au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 augroup END
 
 "
