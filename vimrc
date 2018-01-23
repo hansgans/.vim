@@ -155,6 +155,9 @@ let g:jedi#auto_vim_configuration = 1
 	  "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*' 
 		" alternative pattern: '\h\w*\|[^. \t]\.\w*'
 
+" deoplete enable at startup
+let g:deoplete#enable_at_startup = 1
+
 "Settings for vimtex
 let g:vimtex_complete_enabled=1
 let g:vimtex_toc_enable=1
@@ -281,6 +284,8 @@ let g:neomake_open_list = 2 " open window in case of errors
 let g:neomake_python_enabled_makers = ['pylint']
 " Run neomake in normal mode and buffer write
 call neomake#configure#automake('nw')
+"let g:neomake_tex_enabled_makers = ['lacheck']
+let g:neomake_tex_enabled_makers = [] " disable syntax checking for tex documents
 
 " Old sytastic configuration
 "set statusline+=%#warningmsg#
