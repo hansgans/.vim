@@ -160,7 +160,9 @@ let g:deoplete#enable_at_startup = 1
 
 "Settings for vimtex
 let g:vimtex_complete_enabled=1
-let g:vimtex_toc_enable=1
+let g:vimtex_toc_enabled=1
+let g:vimtex_fold_enabled=1
+let g:vimtex_indent_enabled=1
 let g:vimtex_view_enable=1
 let g:vimtex_view_method='general'
 if has("mac")
@@ -172,6 +174,11 @@ let g:vimtex_latexmk_continuous=1
 au BufRead,BufNewFile *.tex set spell
 " Enable spell checking by default for TeX files
 au BufRead,BufNewFile *.tex set filetype=tex
+" Configure vimtex to work with deoplete
+if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+endif
+let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 
 "Settings for XML editing
 let g:xml_syntax_folding=1
