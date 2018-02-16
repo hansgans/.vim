@@ -76,7 +76,7 @@ set wildmenu
 set wildmode=list:longest,full
 set mouse=a
 set cursorline		" line below curser
-set guifont=Monaco:h12
+"set guifont=Monaco:h12
 syntax on			" syntax highlighting
 set backspace=indent,eol,start
 set autochdir
@@ -146,6 +146,10 @@ else
 	endif"  
 endif
 
+
+" vimpager
+"let g:vimpager.gvim = 0
+
 " jedi-vim
 " We want to use jedi autocompletition for python
 autocmd FileType python setlocal omnifunc=jedi#completions
@@ -170,6 +174,8 @@ let g:vimtex_view_general_viewer='/Applications/Skim.app/Contents/SharedSupport/
 endif
 let g:vimtex_view_general_options='@line @pdf @tex'
 let g:vimtex_latexmk_continuous=1
+let g:vimtex_quickfix_latexlog = {'default' : 0} " disable warnings
+
 " Enable spell checking by default for TeX files
 au BufRead,BufNewFile *.tex set spell
 " Enable spell checking by default for TeX files
