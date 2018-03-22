@@ -69,6 +69,7 @@ set shiftwidth=2	" number of spaces to use for auto intent
 set tabstop=4 		" space representing one tab stop
 set softtabstop=4 		" space representing one tab stop
 set foldmethod=marker
+set encoding=utf-8
 set autoindent
 set nobackup
 set nowritebackup
@@ -411,3 +412,4 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.c,*.h,*.C
 			\ else |
 			\ 	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1) |
 			\ endif
+
