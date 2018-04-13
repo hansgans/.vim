@@ -45,6 +45,7 @@ Plugin 'Shougo/neosnippet-snippets'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'Chiel92/vim-autoformat' " Auto format source code
 Plugin 'python-mode/python-mode'
+Plugin 'vhdirk/vim-cmake' " CMake
 
 Plugin 'chrisbra/vim-diff-enhanced'
 Plugin 'rkitover/vimpager' "Use vim as pager (provides highlighting)
