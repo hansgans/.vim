@@ -17,7 +17,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'wincent/command-t' "Fast file navigation
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-"Plugin 'vim-syntastic/syntastic' "Syntax checking
 Plugin 'neomake/neomake'
 Plugin 'xolox/vim-misc'
 
@@ -32,7 +31,7 @@ Plugin 'xolox/vim-easytags' "Automatic generation of tag files (VERY SLOW startu
 Plugin 'majutsushi/tagbar' "Tag bar
 Plugin 'scrooloose/nerdcommenter' 
 Plugin 'davidhalter/jedi-vim' " Improved autocompletition for python
-"Plugin 'Shougo/neocomplete' " neocomplete is deprecated
+"Plugin 'vim-syntastic/syntastic' "Syntax checking (using neomake currently)
 Plugin 'zchee/deoplete-jedi'
 if has('nvim')
   Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -266,6 +265,8 @@ nnoremap <silent> <Leader>b :TagbarToggle<CR>
 " 
 " Use // comments in .c files
 let g:NERDAltDelims_c = 1
+" Default delimiter for bib files is wrong
+let g:NERDCustomDelimiters = { 'bib' : { 'left': '%' } }
 
 "
 " NERDTree
@@ -294,7 +295,8 @@ endif
 " Syntax checking
 "
 let g:neomake_open_list = 2 " open window in case of errors
-let g:neomake_python_enabled_makers = ['pylint']
+"let g:neomake_python_enabled_makers = ['pep8', 'pylint']
+let g:neomake_python_enabled_makers = ['pep8']
 " Run neomake in normal mode and buffer write
 call neomake#configure#automake('nw')
 "let g:neomake_tex_enabled_makers = ['lacheck']
@@ -401,7 +403,7 @@ let g:clang_format#code_style = "llvm"
 "
 " Highlight overline lines
 "
-au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.c,*.h,*.C
+au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.c,*.h,*.C,*.py
 			\ if exists('+colorcolumn') |
 			\ set textwidth=80 |
 			\ set colorcolumn=+1 |
@@ -410,3 +412,4 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.c,*.h,*.C
 			\ else |
 			\ 	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1) |
 			\ endif
+
