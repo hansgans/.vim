@@ -173,8 +173,24 @@ if has("mac")
 let g:vimtex_view_general_viewer='/Applications/Skim.app/Contents/SharedSupport/displayline'
 endif
 let g:vimtex_view_general_options='@line @pdf @tex'
-let g:vimtex_latexmk_continuous=1
 let g:vimtex_quickfix_latexlog = {'default' : 0} " disable warnings
+" let g:vimtex_latexmk_continuous=1  "Deprecated
+let g:vimtex_compiler_latexmk = {
+        \ 'backend' : 'nvim',
+        \ 'background' : 1,
+        \ 'build_dir' : '',
+        \ 'callback' : 1,
+        \ 'continuous' : 0,
+        \ 'executable' : 'latexmk',
+        \ 'options' : [
+        \   '-pdf',
+        \   '-verbose',
+        \   '-file-line-error',
+        \   '-synctex=1',
+        \   '-interaction=nonstopmode',
+		\	'-shell-escape',
+        \ ],
+        \}
 
 " Enable spell checking by default for TeX files
 au BufRead,BufNewFile *.tex set spell
