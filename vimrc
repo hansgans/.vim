@@ -161,6 +161,9 @@ let g:jedi#auto_vim_configuration = 1
 	  "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*' 
 		" alternative pattern: '\h\w*\|[^. \t]\.\w*'
 
+"let g:python_host_prog = '/home/weidenka/bin/python'
+let g:python3_host_prog = '/home/weidenka/bin/python3'
+
 " deoplete enable at startup
 let g:deoplete#enable_at_startup = 1
 
@@ -177,6 +180,8 @@ endif
 let g:vimtex_view_general_options='@line @pdf @tex'
 let g:vimtex_latexmk_continuous=1
 let g:vimtex_quickfix_latexlog = {'default' : 0} " disable warnings
+" Compiler callbacks
+let g:vimtex_compiler_progname = 'nvr'
 
 " Enable spell checking by default for TeX files
 au BufRead,BufNewFile *.tex set spell
