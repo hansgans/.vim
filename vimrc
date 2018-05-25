@@ -70,6 +70,7 @@ set shiftwidth=2	" number of spaces to use for auto intent
 set tabstop=4 		" space representing one tab stop
 set softtabstop=4 		" space representing one tab stop
 set foldmethod=marker
+set encoding=utf-8
 set autoindent
 set nobackup
 set nowritebackup
@@ -162,6 +163,9 @@ let g:jedi#auto_vim_configuration = 1
 	  "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*' 
 		" alternative pattern: '\h\w*\|[^. \t]\.\w*'
 
+"let g:python_host_prog = '/home/weidenka/bin/python'
+let g:python3_host_prog = '/home/weidenka/bin/python3'
+
 " deoplete enable at startup
 let g:deoplete#enable_at_startup = 1
 
@@ -194,6 +198,8 @@ let g:vimtex_compiler_latexmk = {
 		\	'-shell-escape',
         \ ],
         \}
+" Compiler callbacks
+let g:vimtex_compiler_progname = 'nvr'
 
 " Enable spell checking by default for TeX files
 au BufRead,BufNewFile *.tex set spell
