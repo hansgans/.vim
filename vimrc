@@ -12,6 +12,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'dzeban/vim-log-syntax'
 
 " Navigation
 Plugin 'wincent/command-t' "Fast file navigation
@@ -19,6 +20,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'neomake/neomake'
 Plugin 'xolox/vim-misc'
+Plugin 'easymotion/vim-easymotion'
 
 " Git
 Plugin 'airblade/vim-gitgutter' "Git diff
@@ -76,7 +78,7 @@ set wildmenu
 set wildmode=list:longest,full
 set mouse=a
 set cursorline		" line below curser
-"set guifont=Monaco:h12
+set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h13
 syntax on			" syntax highlighting
 set backspace=indent,eol,start
 set autochdir
@@ -107,7 +109,8 @@ au BufRead,BufNewFile *.c,*.h set textwidth=79
 
 " Set color scheme
 if has('gui_running')
-	set background=light
+	set background=dark
+	"set background=light
 else
 	set background=dark
 endif
@@ -420,7 +423,7 @@ let g:clang_format#code_style = "llvm"
 "
 " Highlight overline lines
 "
-au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.c,*.h,*.C,*.py
+au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.c,*.h,*.C,*.py,*.tex
 			\ if exists('+colorcolumn') |
 			\ set textwidth=80 |
 			\ set colorcolumn=+1 |
