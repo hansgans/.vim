@@ -163,8 +163,7 @@ let g:jedi#auto_vim_configuration = 1
 	  "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*' 
 		" alternative pattern: '\h\w*\|[^. \t]\.\w*'
 
-"let g:python_host_prog = '/home/weidenka/bin/python'
-let g:python3_host_prog = '/home/weidenka/bin/python3'
+let g:python3_host_prog = 'python3'
 
 " deoplete enable at startup
 let g:deoplete#enable_at_startup = 1
