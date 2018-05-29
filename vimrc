@@ -150,10 +150,6 @@ else
 	endif"  
 endif
 
-
-" vimpager
-"let g:vimpager.gvim = 0
-
 " jedi-vim
 " We want to use jedi autocompletition for python
 autocmd FileType python setlocal omnifunc=jedi#completions
