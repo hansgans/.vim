@@ -37,6 +37,7 @@ Plugin 'davidhalter/jedi-vim' " Improved autocompletition for python
 Plugin 'zchee/deoplete-jedi'
 if has('nvim')
   Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plugin 'zchee/deoplete-clang'
 else
   Plugin 'Shougo/deoplete.nvim'
   Plugin 'roxma/nvim-yarp'
@@ -163,6 +164,17 @@ let g:python3_host_prog = 'python3'
 
 " deoplete enable at startup
 let g:deoplete#enable_at_startup = 1
+" set sources
+let g:deoplete#custom#sources = {}
+let g:deoplete#custom#sources.cpp = ['LanguageClient']
+let g:deoplete#custom#sources.python = ['LanguageClient']
+let g:deoplete#custom#sources.python3 = ['LanguageClient']
+let g:deoplete#custom#sources.rust = ['LanguageClient']
+let g:deoplete#custom#sources.c = ['LanguageClient']
+let g:deoplete#custom#sources.vim = ['vim']
+if filereadable('/opt/local/libexec/llvm-6.0/lib/libclang.dylib')
+  let g:deoplete#sources#clang#libclang_path = '/opt/local/libexec/llvm-6.0/lib/libclang.dylib'
+endif
 
 "Settings for vimtex
 let g:vimtex_complete_enabled=1
@@ -251,7 +263,7 @@ let g:airline#extensions#tabline#enabled = 1
 "     https://github.com/abertsch/Menlo-for-Powerline
 " download all the .ttf files, double-click on them and click "Install"
 " Finally, uncomment the next line
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 " Show PASTE if in paste mode
 let g:airline_detect_paste=1
 " Use the solarized theme for the Airline status bar
@@ -319,7 +331,7 @@ let g:neomake_open_list = 2 " open window in case of errors
 "let g:neomake_python_enabled_makers = ['pep8', 'pylint']
 let g:neomake_python_enabled_makers = ['pep8']
 " Run neomake in normal mode and buffer write
-call neomake#configure#automake('nw')
+"call neomake#configure#automake('nw')
 "let g:neomake_tex_enabled_makers = ['lacheck']
 let g:neomake_tex_enabled_makers = [] " disable syntax checking for tex documents
 
@@ -424,7 +436,7 @@ let g:clang_format#code_style = "llvm"
 "
 " Highlight overline lines
 "
-au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*.c,*.h,*.C,*.py,*.tex
+au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.hpp,*.c,*.h,*.C,*.py,*.tex
 			\ if exists('+colorcolumn') |
 			\ set textwidth=80 |
 			\ set colorcolumn=+1 |
