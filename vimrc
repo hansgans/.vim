@@ -188,23 +188,27 @@ let g:vimtex_view_general_viewer='/Applications/Skim.app/Contents/SharedSupport/
 endif
 let g:vimtex_view_general_options='@line @pdf @tex'
 let g:vimtex_quickfix_latexlog = {'default' : 0} " disable warnings
-" let g:vimtex_latexmk_continuous=1  "Deprecated
+"let g:vimtex_latexmk_continuous=1  "Deprecated
 let g:vimtex_compiler_latexmk = {
-        \ 'backend' : 'nvim',
-        \ 'background' : 1,
-        \ 'build_dir' : '',
-        \ 'callback' : 1,
-        \ 'continuous' : 0,
-        \ 'executable' : 'latexmk',
-        \ 'options' : [
-        \   '-pdf',
-        \   '-verbose',
-        \   '-file-line-error',
-        \   '-synctex=1',
-        \   '-interaction=nonstopmode',
+		\ 'backend' : 'jobs',
+		\ 'background' : 1,
+		\ 'build_dir' : '',
+		\ 'callback' : 1,
+		\ 'continuous' : 0,
+		\ 'executable' : 'latexmk',
+		\ 'options' : [
+		\   '-pdf',
+		\   '-verbose',
+		\   '-file-line-error',
+		\   '-synctex=1',
+		\   '-interaction=nonstopmode',
 		\	'-shell-escape',
-        \ ],
-        \}
+		\ ],
+		\}
+if has('nvim')
+  let g:vimtex_compiler_latexmk['backend'] = 'nvim'
+endif
+
 " Compiler callbacks
 let g:vimtex_compiler_progname = 'nvr'
 
@@ -445,4 +449,12 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.hpp,*.c,*.h,*.C,*.py,*.tex
 			\ else |
 			\ 	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1) |
 			\ endif
+
+"
+" ctrlp extensions
+"
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',									 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+
+" List buffers and prepare :b 
+nnoremap <Leader>b :ls<CR>:b<Space>
 
