@@ -462,3 +462,12 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',				
 " List buffers and prepare :b 
 nnoremap <Leader>b :ls<CR>:b<Space>
 
+"
+" vimpager
+"
+if exists('g:vimpager_plugin_loaded')
+  let g:vimpager.passthrough = 1 " Show short files directly in terminal
+  let g:vimpager.ansiesc = 1 " Use AnsiEsc plugin for color highlighting
+  "let g:less.numbers = 1 " Line numbers
+  "let g:less.number = 1 " Line numbers
+endif
