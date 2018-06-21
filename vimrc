@@ -72,6 +72,7 @@ set tabstop=4 		" space representing one tab stop
 set softtabstop=4 		" space representing one tab stop
 set foldmethod=marker
 set encoding=utf-8
+set number
 set autoindent
 set nobackup
 set nowritebackup
@@ -438,12 +439,15 @@ augroup END
 let g:clang_format#code_style = "llvm"
 
 "
-" Highlight overline lines
+" Settings for source code files
+"  - Highlight overline lines
+"  - line numbers
 "
 au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.hpp,*.c,*.h,*.C,*.py,*.tex
 			\ if exists('+colorcolumn') |
 			\ set textwidth=80 |
 			\ set colorcolumn=+1 |
+			\ set number |
 			\ highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9 guifg=white |
 			\ match OverLength /\%>81v.\+/ |
 			\ else |
